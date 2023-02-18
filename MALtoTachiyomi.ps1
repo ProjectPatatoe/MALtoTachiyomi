@@ -1,3 +1,7 @@
+param(
+    [Parameter()]
+    [int]$mangaID
+)
 #CONFIG
 $CFG_preferEnglishTitles = $true
 $CFG_getCoverImage = $true
@@ -14,7 +18,9 @@ $DebugPreference = "Continue" #comment to hide
 
 #####Prompt
 "this will create the metadata files for Tachiyomi from MyAnimeList"
-$mangaID = Read-Host -Prompt "Enter MyAnimeList ID of Manga:"
+if ($mangaID -eq 0) {
+    $mangaID = Read-Host -Prompt "Enter MyAnimeList ID of Manga:"
+}
 $response = Invoke-WebRequest -Uri "$CFG_APIurl/manga/$mangaID"
 #TODO:test if fail
 Write-Debug $response
